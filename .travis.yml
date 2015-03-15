@@ -1,0 +1,6 @@
+language: node_js
+node_js:
+  - '0.10'
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'generator-play-crud' ]; then cd .. && eval "mv $currentfolder generator-play-crud" && cd generator-play-crud; fi
