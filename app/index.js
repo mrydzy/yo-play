@@ -30,17 +30,11 @@ module.exports = yeoman.generators.Base.extend({
   prompting: function () {
     var done = this.async();
 
-    // Have Yeoman greet the user.
     this.log(yosay(
       'Welcome to the finest' + chalk.red('PlayCrud') + ' generator!'
     ));
 
     var prompts = [{
-      type: 'input',
-      name: 'projectName',
-      message: 'How do you want to call your project?',
-      default: "new-project"
-    }, {
       type: 'input',
       name: 'projectPackage',
       message: 'What is your project package ex. com.mycompany',
@@ -48,7 +42,6 @@ module.exports = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function (props) {
-      this.projectName = props.projectName;
       this.projectPackage = props.projectPackage;
       this.projectPackagePath = this.projectPackage.replace(/\./g, '\/');
       done();
@@ -108,5 +101,9 @@ module.exports = yeoman.generators.Base.extend({
     this.installDependencies({
       skipInstall: this.options['skip-install']
     });
+  },
+
+  config: function() {
+    this.config.set('package', this.projectPackage);
   }
 });
