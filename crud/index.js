@@ -3,6 +3,8 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 
+var helper = require('./helper')
+
 var _copyTemplate = function (source, destination, that, params) {
   that.fs.copyTpl(
     that.templatePath(source),
@@ -47,8 +49,10 @@ module.exports = yeoman.generators.Base.extend({
       this.entity = props.crudEntity.capitalize();
       this.projectPackage = this.config.get('package');
       this.projectPackagePath = this.projectPackage.replace(/\./g, '\/');
-      done();
+      this.fields = [];
+      helper.ask(this, done, this.fields);
     }.bind(this));
+
   },
 
 
@@ -58,7 +62,6 @@ module.exports = yeoman.generators.Base.extend({
       var modelsPath = 'app/' + this.projectPackagePath + '/models/Entity.scala';
       var controllersPath = 'app/' + this.projectPackagePath + '/controllers/EntityController.scala';
       var routesPath =this.destinationPath('conf/routes');
-      if (this.fs.exists)
 
       _copyTemplate('EntityController.scala', controllersPath.replace('Entity', this.entity), this,
         {
@@ -71,7 +74,10 @@ module.exports = yeoman.generators.Base.extend({
         {
           package : this.projectPackage,
           entity: this.entity,
-          entityTag: "\"" +this.entity.toUpperCase() + "\""
+          entityTag: "\"" +this.entity.toUpperCase() + "\"",
+          parametersList: helper.getParametersList(this.fields),
+          fieldsDefinition: helper.getFieldsDefinition(this.fields),
+          fieldNames: helper.getFieldNames(this.fields)
         }
       );
 
