@@ -89,9 +89,15 @@ module.exports = yeoman.generators.Base.extend({
 
     projectConfigurableFiles: function () {
       var controllersPath = 'app/' + this.projectPackagePath + '/controllers';
+      var actorsPath = 'app/' + this.projectPackagePath + '/actors';
       var configPath = 'conf/';
 
       _copyTemplate('app/controllers/MainController.scala', controllersPath + '/MainController.scala', this, { package : this.projectPackage});
+      _copyTemplate('app/controllers/BaseController.scala', controllersPath + '/BaseController.scala', this, { package : this.projectPackage});
+
+      _copyTemplate('app/actors/BaseActor.scala', actorsPath + '/BaseActor.scala', this, { package : this.projectPackage});
+      _copyTemplate('app/actors/messages/ActorMessages.scala', actorsPath + '/messages/ActorMessages.scala', this, { package : this.projectPackage});
+
       _copyTemplate('conf/application.conf', configPath + '/application.conf', this, { package : this.projectPackage});
       _copyTemplate('conf/routes', configPath + '/routes', this, { package : this.projectPackage});
     }
