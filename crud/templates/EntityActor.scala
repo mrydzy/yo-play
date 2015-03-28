@@ -78,7 +78,7 @@ class <%= entity %>Actor extends BaseActor {
    */
   def update(<%= entityVar %>: <%= entity %>): Int = {
     DB.withSession { implicit session: Session =>
-      <%= entity %>Query.where(_.id === <%= entityVar %>.id.get).update(<%= entityVar %>)
+      <%= entity %>Query.filter(_.id === <%= entityVar %>.id.get).update(<%= entityVar %>)
     }
   }
 
