@@ -31,7 +31,7 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     this.log(yosay(
-      'Welcome to the finest' + chalk.red('PlayCrud') + ' generator!'
+      'Welcome to the finest ' + chalk.red('PlayCrud') + ' generator!'
     ));
 
     var prompts = [{
@@ -42,7 +42,7 @@ module.exports = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function (props) {
-      this.projectPackage = props.projectPackage;
+      this.projectPackage = props.projectPackage.replace(/ /g, "").toLowerCase();
       this.projectPackagePath = this.projectPackage.replace(/\./g, '\/');
       done();
     }.bind(this));

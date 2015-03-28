@@ -13,7 +13,7 @@ var _copyTemplate = function (source, destination, that, params) {
   );
 };
 
-var _append = function(path, content, that) {
+var _appendToFile = function(path, content, that) {
   that.conflicter.force = true;
   var file = that.readFileAsString(path);
   that.write(path, file + '\n' + content);
@@ -23,14 +23,14 @@ var _replaceConstants = function(entity, packageName, entry) {
   return entry.replace('entity', entity.toLowerCase()).replace('Entity', entity).replace('package', packageName);
 }
 
-var _formatRoute = function (entity, packageName, routes) {
+var _createRoutes = function (entity, packageName) {
+  var routes = _replaceConstants(entity, packageName, "GET        /entity        package.controllers.EntityController.list() \n");
+  routes += _replaceConstants(entity, packageName, "GET        /entity/:id    package.controllers.EntityController.read(id: Int) \n");
+  routes += _replaceConstants(entity, packageName, "DELETE     /entity/:id    package.controllers.EntityController.delete(id: Int) \n");
+  routes += _replaceConstants(entity, packageName, "POST       /entity        package.controllers.EntityController.create() \n");
+  routes += _replaceConstants(entity, packageName, "PUT        /entity        package.controllers.EntityController.update() \n");
 
-  var routesString = ""
-  routes.forEach(function (entry) {
-    routesString += _replaceConstants(entity, packageName, entry)
-  });
-
-  return routesString
+  return routes;
 }
 
 String.prototype.capitalize = function() {
@@ -68,11 +68,10 @@ module.exports = yeoman.generators.Base.extend({
 
 
   writing: {
-    app: function () {
+    copyTemplates: function () {
       var modelsPath = 'app/' + this.projectPackagePath + '/models/Entity.scala';
       var controllersPath = 'app/' + this.projectPackagePath + '/controllers/EntityController.scala';
       var actorsPath = 'app/' + this.projectPackagePath + '/actors/EntityActor.scala';
-      var routesPath =this.destinationPath('conf/routes');
 
       _copyTemplate('EntityController.scala', controllersPath.replace('Entity', this.entity), this,
         {
@@ -100,17 +99,12 @@ module.exports = yeoman.generators.Base.extend({
           fieldNames: helper.getFieldNames(this.fields)
         }
       );
-
-      var routes = []
-      routes.push("GET        /entity        package.controllers.EntityController.list() \n");
-      routes.push("GET        /entity/:id    package.controllers.EntityController.read(id: Int) \n");
-      routes.push("DELETE     /entity/:id    package.controllers.EntityController.delete(id: Int) \n");
-      routes.push("POST       /entity        package.controllers.EntityController.create() \n");
-      routes.push("PUT        /entity        package.controllers.EntityController.update() \n");
-
-      var routesString = _formatRoute(this.entity, this.projectPackage, routes);
-      _append(routesPath, routesString, this);
+    },
+    modifyFiles: function() {
+      var routesPath =this.destinationPath('conf/routes');
+      _appendToFile(routesPath, _createRoutes(this.entity, this.projectPackage), this);
     }
+
   },
 
   install: function () {
