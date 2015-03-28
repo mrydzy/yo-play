@@ -64,7 +64,7 @@ db.default.url="jdbc:h2:mem:play"
 db.default.user=sa
 db.default.password=""
 ```
->You can declare as many datasources as you want. By convention, the default datasource is named `default`.
+You can declare as many datasources as you want. By convention, the default datasource is named `default`.
 ## Evolutions
 Evolutions plugin will generate entire database schema for you. Just remember that after each change to the model you need to apply new evolution - the easiest way to do it is to go to your homepage (localhost:9000) and it will prompt you with super-scary-looking red page with 'APPLY EVOLUTION' button. That'll do the job.
 Auto-generated evolutions drop entire database and re-create it, which in most cases of development, but if you want to get rid of it just go to application.conf and uncomment:
@@ -79,8 +79,10 @@ Neither this generator nor generated app is idiot-proof. That means that e.g. if
 ## TODO list
 - [x] Generating Play + Slick environment
 - [x] Generating simple CRUD entity
-- [ ] Adding more possible field-types
-- [ ] Adding insertion/modification date
+- [ ] Support for more possible field-types
+- [ ] Default fields with insertion/modification date
+- [ ] TESTS!!!!!
+- [ ] Better error-handling ??
 - [ ] Adding [type-safe ids](https://github.com/VirtusLab/unicorn)??
 
 ## License
