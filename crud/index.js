@@ -3,7 +3,8 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 
-var helper = require('./helper')
+var paramHelper = require('./parametersHelper')
+var promptHelper = require('./promptHelper')
 
 var _copyTemplate = function (source, destination, that, params) {
   that.fs.copyTpl(
@@ -45,7 +46,7 @@ module.exports = yeoman.generators.Base.extend({
     var done = this.async();
 
     this.log(yosay(
-      'Welcome to the finest' + chalk.red('PlayCrud') + ' generator!'
+      'Hola! Let\'s get your simple ' + chalk.red('CRUD') + ' done!'
     ));
 
     var prompts = [{
@@ -56,16 +57,14 @@ module.exports = yeoman.generators.Base.extend({
     }];
 
     this.prompt(prompts, function (props) {
-      this.entity = props.crudEntity.capitalize();
+      this.entity = props.crudEntity.replace(/ /g, '');
       this.projectPackage = this.config.get('package');
       this.projectPackagePath = this.projectPackage.replace(/\./g, '\/');
       this.fields = [];
-      helper.ask(this, done, this.fields);
+      promptHelper.ask(this, done, this.fields);
     }.bind(this));
 
   },
-
-
 
   writing: {
     copyTemplates: function () {
@@ -94,9 +93,9 @@ module.exports = yeoman.generators.Base.extend({
           package : this.projectPackage,
           entity: this.entity,
           entityTag: "\"" +this.entity.toUpperCase() + "\"",
-          parametersList: helper.getParametersList(this.fields),
-          fieldsDefinition: helper.getFieldsDefinition(this.fields),
-          fieldNames: helper.getFieldNames(this.fields)
+          parametersList: paramHelper.getParametersList(this.fields),
+          fieldsDefinition: paramHelper.getFieldsDefinition(this.fields),
+          fieldNames: paramHelper.getFieldNames(this.fields)
         }
       );
     },
@@ -104,7 +103,6 @@ module.exports = yeoman.generators.Base.extend({
       var routesPath =this.destinationPath('conf/routes');
       _appendToFile(routesPath, _createRoutes(this.entity, this.projectPackage), this);
     }
-
   },
 
   install: function () {
