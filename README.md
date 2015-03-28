@@ -26,6 +26,7 @@ npm install -g yo
 ```bash
  yo play-crud
 ```
+This will generate ready-to-use Play project with your own package structure.
 
 ## Getting your CRUD
 - Go to your root folder
@@ -55,7 +56,7 @@ Obviously if you seriously think that something else suits you better you can re
 - Btw. activator has also bunch of awesome (but unfortunately not interactive) [templates](https://typesafe.com/activator/templates) which can be a cornerstone for development too. It is just not that cool.
 
 ## Database
->Communication with Db was configured with slick. By default it is H2 in memory DB (so you don't actually need to do anything to get it running). To change it e.g. to Postgres or something persistent just have a look at conf/application.conf file
+Communication with Db was configured with slick. By default it is H2 in memory DB (so you don't actually need to do anything to get it running). To change it e.g. to Postgres or something persistent just have a look at conf/application.conf file
 
 ```bash
 db.default.driver=org.h2.Driver
@@ -76,10 +77,10 @@ Remember that now you need to take care of updating your database on your own. C
 Neither this generator nor generated app is idiot-proof. That means that e.g. if you want to YoGenerate entity which already exists - I will not try to stop you.
 
 ## TODO list
-[x] Generating Play + Slick environment
-[x] Generating simple CRUD entity
-[ ] Adding more possible field-types
-[ ] Adding [type-safe ids](https://github.com/VirtusLab/unicorn)??
+- [x] Generating Play + Slick environment
+- [x] Generating simple CRUD entity
+- [ ] Adding more possible field-types
+- [ ] Adding [type-safe ids](https://github.com/VirtusLab/unicorn)??
 
 ## License
 
