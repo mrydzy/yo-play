@@ -80,6 +80,7 @@ Neither this generator nor generated app is idiot-proof. That means that e.g. if
 - [x] Generating Play + Slick environment
 - [x] Generating simple CRUD entity
 - [ ] Adding more possible field-types
+- [ ] Adding insertion/modification date
 - [ ] Adding [type-safe ids](https://github.com/VirtusLab/unicorn)??
 
 ## License
