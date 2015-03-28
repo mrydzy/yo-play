@@ -5,7 +5,7 @@ import play.api.mvc.{Action, Controller}
 object MainController extends Controller {
 
   def index = Action {
-    Ok(views.html.index.render("Hello from Scala"))
+    Ok(views.html.index.render("Welcome to Scala+Play REST service base. As you can see, your awesome backend has also front-end powers!"))
   }
 
 }

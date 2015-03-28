@@ -81,7 +81,7 @@ module.exports = yeoman.generators.Base.extend({
       _copyExactFile('LICENSE', this);
       _copyExactFile('build.sbt', this);
 
-      _copyExactFile('utils/Global.scala', this);
+      _copyExactFile('app/utils/Global.scala', this);
 
       _copyExactFile(viewsPath + 'index.scala.html', this);
       _copyExactFile(viewsPath + 'main.scala.html', this);
@@ -92,7 +92,7 @@ module.exports = yeoman.generators.Base.extend({
       var configPath = 'conf/';
 
       _copyTemplate('app/controllers/MainController.scala', controllersPath + '/MainController.scala', this, { package : this.projectPackage});
-      _copyFile('conf/application.conf', configPath + '/application.conf', this);
+      _copyTemplate('conf/application.conf', configPath + '/application.conf', this, { package : this.projectPackage});
       _copyTemplate('conf/routes', configPath + '/routes', this, { package : this.projectPackage});
     }
   },

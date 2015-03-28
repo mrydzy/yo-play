@@ -9,7 +9,7 @@ var questions = [
     type: "list",
     name: "type",
     message: "Select type",
-    choices: ["Integer", "String"]
+    choices: ["Int", "String"]
   }, {
     type: "confirm",
     name: "addAnother",
@@ -24,7 +24,6 @@ var recursivePrompt = function (that, done, fields) {
     if ( answers.addAnother ) {
       recursivePrompt(that, done, fields);
     } else {
-      console.log( "Created fields are:", fields.join(", ") );
       done();
     }
   }.bind(that));
@@ -44,7 +43,7 @@ var fieldsDefinition = function(fields) {
   var list = "";
   var fieldsCount = fields.length
   for (var i = 0; i < fieldsCount; i++) {
-    list += "def id = column[" + fields[i].type + "](\"" + fields[i].name + "\", O.NotNull)\n  ";
+    list += "def " + fields[i].name + " = column[" + fields[i].type + "](\"" + fields[i].name + "\", O.NotNull)\n  ";
   }
   return list;
 }
@@ -55,11 +54,12 @@ var fieldNames = function(fields) {
   for (var i = 0; i < fieldsCount - 1; i++) {
     list += fields[i].name + ", ";
   }
-  list += fields[fieldsCount - 1].name + " : " + fields[fieldsCount - 1].type;
+  list += fields[fieldsCount - 1].name;
   return list;
 }
 
-module.exports.ask = recursivePrompt
-module.exports.getParametersList = parametersList
-module.exports.getFieldsDefinition = fieldsDefinition
-module.exports.getFieldNames = fieldNames
+
+module.exports.ask = recursivePrompt;
+module.exports.getParametersList = parametersList;
+module.exports.getFieldsDefinition = fieldsDefinition;
+module.exports.getFieldNames = fieldNames;

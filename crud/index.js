@@ -19,8 +19,8 @@ var _append = function(path, content, that) {
   that.write(path, file + '\n' + content);
 }
 
-var _formatRoute = function (entity, route) {
-  return route.replace('entity', entity.toLowerCase()).replace('Entity', entity);
+var _formatRoute = function (entity, route, packageName) {
+  return route.replace('entity', entity.toLowerCase()).replace('Entity', entity).replace('package', packageName);
 }
 
 String.prototype.capitalize = function() {
@@ -67,7 +67,7 @@ module.exports = yeoman.generators.Base.extend({
         {
           package : this.projectPackage,
           entity: this.entity,
-          entityVar: this.entity.toLowerCase()
+          entityVar: this.entity.toLowerCase(),
         }
       );
       _copyTemplate('Entity.scala', modelsPath.replace('Entity', this.entity), this,
@@ -81,11 +81,11 @@ module.exports = yeoman.generators.Base.extend({
         }
       );
 
-      var listEntity = "GET        /entity        package.controllers.EntityController.list() \n";
-      var postEntity = "POST       /entity        package.controllers.EntityController.add() \n";
+      var listEntity = "GET        /entity        " + this.projectPackage + ".controllers.EntityController.list() \n";
+      var postEntity = "POST       /entity        " + this.projectPackage + ".controllers.EntityController.add() \n";
 
       var routes = _formatRoute(this.entity, listEntity)
-        + _formatRoute(this.entity, postEntity);
+        + _formatRoute(this.entity, postEntity, this.projectPackage);
       _append(routesPath, routes, this);
     }
   },
