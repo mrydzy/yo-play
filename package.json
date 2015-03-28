@@ -1,13 +1,16 @@
 {
   "name": "generator-play-crud",
-  "version": "0.0.0",
-  "description": "Yeoman generator",
+  "version": "0.0.1",
+  "description": "Yeoman generator for play + scala + slick",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "mrydzy/generator-play-crud",
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/npm/npm.git"
+  },
   "author": {
-    "name": "",
-    "email": "",
+    "name": "Maria Rydzy",
+    "email": "maria@rydzy.pl",
     "url": "https://github.com/mrydzy"
   },
   "engines": {
@@ -20,7 +23,7 @@
     "app"
   ],
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator, play, scala, slick, play crud"
   ],
   "dependencies": {
     "yeoman-generator": "^0.18.0",
