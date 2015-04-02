@@ -7,7 +7,7 @@
 - Very basic, asynchronous CRUD for your entities - good for a starter/mocking backend 
 
 ## What do you need?
-1. [Yeoman](http://yeoman.io) - Yeo is a super cool scraffolding tool, amazingly good in getting things done. If he was a real guy, he'd be my boyfriend. Easiest way to get him is with [npm](https://www.npmjs.com/):
+1. [Yeoman](http://yeoman.io) - Yeo is a super cool scraffolding tool, amazingly good in getting things done. Easiest way to get him is with [npm](https://www.npmjs.com/):
 ```bash
 npm install -g yo
 ```
